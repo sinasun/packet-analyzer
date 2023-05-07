@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++17 -Wall
 LDFLAGS = -lncurses -lpcap
 
 # Source files
-SRCS = program.cpp menu.cpp packet_sniffer.cpp
+SRCS = program.cpp menu.cpp packet_sniffer.cpp packet_analyzer.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
