@@ -30,6 +30,8 @@ void Analyzer::packet_handler(unsigned char *user_data, const struct pcap_pkthdr
 
     uint16_t ether_type = ntohs(ethernet_header->ether_type);
 
+    printw("\tEthernet Type: 0x%04X\n", ether_type);
+
     if (ether_type == ETHERTYPE_IP)
     {
         handle_ipv4_packet(packet_data + sizeof(struct ether_header));
@@ -50,7 +52,7 @@ void Analyzer::packet_handler(unsigned char *user_data, const struct pcap_pkthdr
 
     bool enterPressed = false;
     int ch;
-    while (!enterPressed)
+    while (!enterPressed && ether_type != 0)
     {
         ch = getch();
         if (ch == '\n')
@@ -68,7 +70,7 @@ void Analyzer::handle_ipv4_packet(const u_char *packet_data)
     const char *destination_ip = inet_ntoa(ip_header->ip_dst);
     const char *source_ip = inet_ntoa(ip_header->ip_src);
     uint8_t ttl = ip_header->ip_ttl;
-
+    printw("IP Protocol (IPv4): %d\n", static_cast<int>(protocol));
     printw("\tSource IP: %s\n", source_ip);
     printw("\tDestination IP: %s\n", destination_ip);
     printw("\tTTL: %u\n", ttl);

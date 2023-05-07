@@ -34,15 +34,17 @@ bool Sniffer::startCapture(const char *selectedInterface, const char *pcapFileNa
         return 0;
     }
 
-    std::cout << "Caputre has started, to stop press q" << std::endl;
-
     // Start capturing and saving packets
     const u_char *packet;
     struct pcap_pkthdr packetHeader;
     bool stopCapturing = false;
     initscr();
+    clear();
+    printw("Caputre has started, to stop press q");
+    refresh();
     cbreak();
     noecho();
+
     nodelay(stdscr, TRUE);
 
     keypad(stdscr, TRUE);
@@ -65,6 +67,8 @@ bool Sniffer::startCapture(const char *selectedInterface, const char *pcapFileNa
 
     pcap_dump_close(pcapDumper);
     pcap_close(captureHandle);
+    clear();
+    refresh();
     endwin();
 
     return 1;
