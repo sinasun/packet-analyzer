@@ -24,12 +24,12 @@ void Analyzer::packet_handler(unsigned char *user_data, const struct pcap_pkthdr
     const unsigned char *dest_mac = ethernet_header->ether_dhost;
     std::string dest_mac_str = ether_ntoa(reinterpret_cast<const ether_addr *>(dest_mac));
 
+    uint16_t ether_type = ntohs(ethernet_header->ether_type);
+
+
     printw("Ethernet Header:\n");
     printw("\tSource MAC Address: %s\n", src_mac_str.c_str());
     printw("\tDestination MAC Address: %s\n", dest_mac_str.c_str());
-
-    uint16_t ether_type = ntohs(ethernet_header->ether_type);
-
     printw("\tEthernet Type: 0x%04X\n", ether_type);
 
     if (ether_type == ETHERTYPE_IP)
@@ -194,10 +194,10 @@ void Analyzer::handle_http_packet(const u_char *packet_data)
 
 void Analyzer::handle_https_packet(const u_char *packet_data)
 {
-    printw("HTTP Packet\n");
+    printw("HTTPS Packet\n");
 }
 
 void Analyzer::handle_dns_packet(const u_char *packet_data)
 {
-    printw("DNS\n");
+    printw("DNS Packet\n");
 }
